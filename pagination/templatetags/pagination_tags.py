@@ -3,8 +3,12 @@ try:
 except NameError:
     from sets import Set as set
 
+import django
 from django import template
-from django.template import TOKEN_BLOCK
+if django.VERSION >= (1, 8):
+    from django.template.base import TOKEN_BLOCK
+else:
+    from django.template import TOKEN_BLOCK
 from django.http import Http404
 from django.core.paginator import Paginator, InvalidPage
 from django.conf import settings

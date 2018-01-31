@@ -4,7 +4,13 @@ def get_page(self, suffix):
     integer representing the current page.
     """
     try:
-        return int(self.REQUEST['page%s' % suffix])
+        if self.method == 'POST':
+            request = self.POST
+        elif self.method == 'GET':
+            request = self.GET
+        else:
+            request = None
+        return int(request['page%s' % suffix])
     except (KeyError, ValueError, TypeError):
         return 1
 
